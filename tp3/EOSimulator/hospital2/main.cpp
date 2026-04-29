@@ -18,8 +18,10 @@ int main () {
         std::cout << "Arranco ...\n";
         m.connectToExp(&e);
         e.setSeed((unsigned long) i + 129);
-        e.run(1120.0);
+        e.run(10000.0);
         std::cout << "Termine ...\n\n\n";
+        m.usoCamas.print(10);
+        std::cout << '\n';
 		m.lCola.print(10);
 		std::cout << '\n';
 		m.tEspera.print(52);

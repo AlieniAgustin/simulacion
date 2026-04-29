@@ -40,6 +40,8 @@ public:
 	eosim::statics::Observation tEspera;
 	// acumulador de datos sobre el largo medio de la cola
 	eosim::statics::TimeWeighted lCola;
+	// estadistico para rastrear las camas ocupadas a lo largo del tiempo
+	eosim::statics::TimeWeighted usoCamas;
 	// constructor del modelo
 	HospitalSimple(unsigned int cantCamas, double tasaArribos, double tiempoEstadia);
 	// destructor del modelo

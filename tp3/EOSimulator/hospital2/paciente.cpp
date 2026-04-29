@@ -22,6 +22,7 @@ void PacienteFeeder::eventRoutine(Entity* who) {
 		h.camas.acquire(1); // Toma el token del recurso
 		std::cout << "un paciente fue aceptado en una cama " << h.getSimTime() << "\n";
 		h.tEspera.log(h.getSimTime() - who->getClock());
+		h.usoCamas.log(h.camas.getMax() - h.camas.getQuantity());
 
 		// Programa el evento B de salida usando el tiempo de estadía
 		h.schedule(h.estadia.sample(), who, salidaP);
@@ -52,12 +53,14 @@ void SalidaPaciente::eventRoutine(Entity* who) {
 
 	// 1. Devuelve el recurso (Token renovable intacto)
 	h.camas.returnBin(1);
+	h.usoCamas.log(h.camas.getMax() - h.camas.getQuantity());
 
 	// 2. HARDCODEO: Revisa manualmente la cola asociada a ese recurso
 	if (!h.cola.empty()) {
 		h.camas.acquire(1); // Vuelve a tomar el token para el paciente encolado
 		std::cout << "un paciente fue aceptado en una cama " << h.getSimTime() << "\n";
         h.lCola.log(h.cola.size());
+		h.usoCamas.log(h.camas.getMax() - h.camas.getQuantity());
 
 		Entity* ent = h.cola.pop(); // Lo saca de la cola
 		h.tEspera.log(h.getSimTime() - ent->getClock());
