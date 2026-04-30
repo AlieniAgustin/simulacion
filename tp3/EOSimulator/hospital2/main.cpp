@@ -20,6 +20,8 @@ int main () {
         e.setSeed((unsigned long) i + 129);
         e.run(10000.0);
         std::cout << "Termine ...\n\n\n";
+        double utilizacion = m.usoCamas.getMean() / cantCamas;
+        std::cout << "Factor de Utilizacion de Camas: " << utilizacion * 100 << "%\n";
         m.usoCamas.print(10);
         std::cout << '\n';
 		m.lCola.print(10);

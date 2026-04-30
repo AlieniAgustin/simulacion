@@ -5,6 +5,7 @@
 #include <eosim/utils/entityqueuefifo.hpp>
 #include <eosim/core/renewable.hpp>
 #include <eosim/dist/negexpdist.hpp>
+#include <eosim/dist/normaldist.hpp>
 #include <eosim/statics/timeweighted.hpp>
 #include <eosim/statics/observation.hpp>
 #include "paciente.hpp"
@@ -27,11 +28,19 @@ private:
 	// evento de salida de los pacientes (fijo)
 	SalidaPaciente sP;
 
+	// punteros o instancias de los nuevos eventos del proceso que comparten las camas
+	ProcesoExternoToma pEToma;
+	ProcesoExternoDevuelve pEDevuelve;
+
 public:
 	// distribucion aleatoria de arribos de pacientes (exponencial)
 	eosim::dist::NegexpDist arribos;
 	// distribucion aleatoria de estadia de pacientes (exponencial)
 	eosim::dist::NegexpDist estadia;
+	// distribucion normal con media 120 y desviacion estandar 2
+	eosim::dist::NormalDist tiempoUsoExtra;
+	// cola por si el proceso extra no consigue las 2 camas simultaneamente
+	eosim::utils::EntityQueueFifo colaExtra;
 	// cola de espera por camas
 	eosim::utils::EntityQueueFifo cola;
 	// camas del hospital
